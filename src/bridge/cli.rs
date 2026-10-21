@@ -349,6 +349,9 @@ struct ServeArgs {
     /// Also serve X-Plane 12: install the FlyWithLua moving-map script and build airports for it on demand.
     #[arg(long = "xplane")]
     xplane: bool,
+    /// Let other devices on the local network access the HTTP API and browser airport map.
+    #[arg(long)]
+    lan: bool,
 }
 
 #[derive(Subcommand)]
@@ -726,7 +729,11 @@ fn serve(a: ServeArgs) -> Result<()> {
             None => crate::term::warn("--xplane: no X-Plane 12 install found; the /xp/ route still works if you install tools/xplane/amdb_oans.lua yourself"),
         }
     }
-    let result = server::serve(store, server::Listen { http_port: if a.http_port == 0 { None } else { Some(a.http_port) }, https });
+    let http_host = if a.lan { "0.0.0.0" } else { "127.0.0.1" };
+    if a.lan {
+        crate::term::info(&format!("LAN access enabled on port {}; open http://<this-PC-local-IP>:{}/map (use `ipconfig` to find the IPv4 address)", a.http_port, a.http_port));
+    }
+    let result = server::serve(store, server::Listen { http_port: if a.http_port == 0 { None } else { Some(a.http_port) }, http_host: http_host.to_string(), https });
     if !a.no_hosts && !persistent {
         let _ = hosts::remove();
     }

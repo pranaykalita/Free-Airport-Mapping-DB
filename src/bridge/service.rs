@@ -137,7 +137,7 @@ pub fn start(settings: &Settings, opts: &Options) -> Result<Running> {
     }
     crate::term::info(&format!("Storage: {}", describe_storage(settings)));
     let store = Arc::new(make_store(&DataArgs::default(), settings)?);
-    let handle = server::start(store, Listen { http_port: Some(http_port), https })?;
+    let handle = server::start(store, Listen { http_port: Some(http_port), http_host: "127.0.0.1".to_string(), https })?;
     if redirected {
         crate::term::success("Serving the iniBuilds A350 and FlyByWire A380X too");
     }

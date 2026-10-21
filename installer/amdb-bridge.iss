@@ -52,6 +52,7 @@ Name: "a320oans"; Description: "Add the A320 OANS airport moving map to the Feni
 Name: "a330oans"; Description: "Add the A330 OANS airport moving map to the Headwind A330's navigation displays"; GroupDescription: "Simulators:"
 Name: "a350"; Description: "Set up the iniBuilds A350 and FlyByWire A380X airport maps (Windows asks for administrator permission)"; GroupDescription: "Simulators:"
 Name: "fenixcharts"; Description: "Show AMDB Bridge's charts on the Fenix A320's tablet (Windows asks for administrator permission; while on, Navigraph sign-in on this computer goes to AMDB Bridge)"; GroupDescription: "Simulators:"; Flags: unchecked
+Name: "simstartup"; Description: "Start AMDB Bridge automatically when Microsoft Flight Simulator starts"; GroupDescription: "Starting up:"
 Name: "startup"; Description: "Open AMDB Bridge in the notification area when Windows starts"; GroupDescription: "Starting up:"; Flags: unchecked
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
@@ -81,6 +82,7 @@ Filename: "{app}\{#AppExe}"; Parameters: "--install-a330-oans"; StatusMsg: "Addi
 Filename: "{app}\{#AppExe}"; Parameters: "--update-a330-oans"; StatusMsg: "Updating the A330 OANS..."; Tasks: not a330oans; Flags: runhidden waituntilterminated
 Filename: "{app}\{#AppExe}"; Parameters: "--setup-navigraph on"; StatusMsg: "Setting up the A350 and A380X..."; Tasks: a350; Flags: runhidden waituntilterminated
 Filename: "{app}\{#AppExe}"; Parameters: "--setup-fenix-charts on"; StatusMsg: "Setting up the Fenix A320's tablet charts..."; Tasks: fenixcharts; Flags: runhidden waituntilterminated
+Filename: "{app}\amdb-bridge.exe"; Parameters: "autostart"; Tasks: simstartup; StatusMsg: "Adding AMDB Bridge to Microsoft Flight Simulator startup..."; Flags: runhidden waituntilterminated
 Filename: "{app}\{#AppExe}"; Parameters: "--run-at-login on"; Tasks: startup; Flags: runhidden waituntilterminated
 Filename: "{app}\{#AppExe}"; Description: "Open AMDB Bridge now"; Flags: postinstall nowait skipifsilent
 

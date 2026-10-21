@@ -204,6 +204,19 @@ amdb-bridge cleanup                         # remove redirect + certificate
 amdb-bridge autostart                       # start with the sim (exe.xml)
 ```
 
+The bridge also serves the OANS-style airport map in a regular browser:
+`http://127.0.0.1:8770/map?icao=EDDF`. To open it from a phone, tablet, or another
+computer on the same network, start it with `amdb-bridge serve --lan`, then use
+`ipconfig` on Windows to find this PC's IPv4 address and open
+`http://<IPv4-address>:8770/map?icao=EDDF`. LAN access exposes the bridge's HTTP API
+to devices on your local network; it is off by default.
+For live aircraft position and heading, install the OANS package for the aircraft you fly
+(for example, `amdb-bridge a320-oans on` for the Fenix A320). Its in-aircraft instrument
+feeds the browser map, so the separate Airport Map toolbar window is not required. The
+browser landing page can then choose the nearest airport at spawn; leave **AUTO** checked
+to switch airports on the ground while taxiing. The **Follow aircraft** control keeps the
+symbol centered. Keep AMDB Bridge running on this PC.
+
 `--bulk` takes continents (africa, antarctica, asia, europe, north-america, oceania,
 south-america), ISO countries, or `all`, comma separated; `--type` (default
 large,medium), `--min-runways` (default 1) and `--min-runway-ft` narrow it down, and
