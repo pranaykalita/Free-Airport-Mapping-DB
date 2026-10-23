@@ -116,9 +116,9 @@ fn handle_charts(store: &Store, req: Request, path: &str) -> Option<Request> {
         respond_json(req, 200, cycle_json().to_string());
         return None;
     }
-    // The sign-in, under `/identity/...` for a patched flight bag and bare for one reached
-    // by redirecting its host, which cannot be given a prefix.
-    let identity = path.find("/identity/").map(|p| p + "/identity/".len()).or_else(|| path.find("/connect/").map(|p| p + 1));
+    // Only patched aircraft use this local sign-in endpoint. Do not answer a bare
+    // /connect request: that used to accept traffic from the retired global Fenix redirect.
+    let identity = path.find("/identity/").map(|p| p + "/identity/".len());
     if let Some(p) = identity {
         let what = path[p..].trim_matches('/').to_string();
         let port = req.headers().iter().find(|h| h.field.equiv("Host")).and_then(|h| h.value.as_str().rsplit_once(':').and_then(|(_, p)| p.parse().ok())).unwrap_or(super::DEFAULT_PORT);

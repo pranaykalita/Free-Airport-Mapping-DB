@@ -195,6 +195,8 @@ def final_target(bridge_version, toolbar_version):
 3. Alternatively, extract AMDB-Airport-Map-Community-{toolbar_version}.zip into a Community folder. It creates the amdb-oans-toolbar package folder there. Keep AMDB Bridge running for map data and taxi routing.
 
 The separate Community ZIP is optional when using the Airport Map installer. The main Bridge installer already includes the A220, A320, and A330 integration choices.
+
+The Bridge installer restores normal Navigraph sign-in on upgrade and removes the retired Fenix EFB sign-in redirect.
 """
     with open(os.path.join(out_dir, "README.txt"), "w", encoding="utf-8", newline="\r\n") as f:
         f.write(readme)
